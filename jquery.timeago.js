@@ -38,7 +38,7 @@
 
   $.extend($.timeago, {
     settings: {
-      refreshMillis: 60000,
+      refreshMillis: 3000,
       allowPast: true,
       allowFuture: false,
       localeTitle: false,
@@ -187,7 +187,10 @@
 
     if (!isNaN(data.datetime)) {
       if ( $s.cutoff == 0 || Math.abs(distance(data.datetime)) < $s.cutoff) {
-        $(this).text(inWords(data.datetime));
+        var secs = (distance(data.datetime)/ 1000);
+        if (secs < 50) suff = " ("+ Math.round(distance(data.datetime)/ 1000)+"s)";
+            else suff = "";
+        $(this).text(inWords(data.datetime)+suff);
       }
     }
     return this;
